@@ -38,7 +38,7 @@ app.post("/", function (req, res) {
       },
     ],
   };
-  var jsonDATA = JSON.stringify(data);
+  var jsonData = JSON.stringify(data);
 
   const url = "https://us21.api.mailchimp.com/3.0/lists/811e3fee5f";
   const options = {
@@ -53,10 +53,12 @@ app.post("/", function (req, res) {
     } else {
       res.sendFile(__dirname + "/failure.html");
     }
-    // response.on("data", function (data) {
-    //     console.log(JSON.parse(data));
-    // })
+    response.on("data", function (data) {
+      //console.log(JSON.parse(data));
+    });
   });
+  request.write(jsonData);
+  request.end();
 });
 
 app.post("/failure", function (req, res) {
